@@ -30,6 +30,7 @@ apt-get install -y make gcc patch
 apt-get install -y curl wget telnet
 #
 apt-get install -y file
+apt-get install -y postfix
 apt-get install -y libdbi-perl
 apt-get install -y spamassassin
 apt-get install -y libarchive-zip-perl
@@ -116,6 +117,8 @@ apt-get install -y cpanminus
 cpanm Digest::SHA1
 cpanm IP::Country::Fast
 cpanm Razor2::Client::Agent
+cpanm Net::LDAP::LDIF
+
 
 echo "creating maia database..."
 # suppress dialog boxes during mysql install -
@@ -159,7 +162,16 @@ cd $WD
 echo
 echo "installing pear modules"
 echo
-pear install DB
+# Do not use latest pear as it causes problems with this code
+# we also found that we need to specify DB version 1.8.2
+#
+# else we see the following:
+#
+# PHP Fatal error:  Call to undefined function: MDB2_Driver_mysql::raiseError()
+# in /usr/share/php/MDB2.php on line 1936, 
+# referer: http://mgubu/maia/internal-init.php
+#
+pear install DB-1.8.2
 pear install MDB2
 pear install MDB2#mysql
 pear install Mail_mimeDecode

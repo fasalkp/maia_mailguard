@@ -10,6 +10,10 @@ echo
 # get the info, write parames to a file
 ./get-info.sh
 
+# looks like we need to make sure perl and postfix are installed first
+yum install -y perl
+yum install -y postfix
+
 # find out what we need to change
 ./process-changes.sh
 
@@ -23,6 +27,7 @@ yum install -y make gcc
 yum install -y telnet
 #
 yum install -y file
+yum install -y tar
 yum install -y perl-DBI 
 yum install -y spamassassin
 yum install -y perl-Archive-Zip
@@ -153,7 +158,7 @@ yum install -y php-Smarty
 echo
 echo "installing pear modules"
 echo
-pear install DB
+pear install DB-1.8.2
 pear install MDB2
 pear install MDB2#mysql
 pear install Mail_mimeDecode
